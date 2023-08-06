@@ -2,8 +2,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <math.h>
 
+//#include <cmath>
 using namespace std;
 
 
@@ -32,6 +32,67 @@ void print(vector<int> v)
 		cout << n << " ,";
 	}
 }
+// 정답 체스판 1 
+string whitefirst[8] = {
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW"
+};
+// 정답 체스판 2
+string blackfirst[8] = {
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB",
+		"BWBWBWBW",
+		"WBWBWBWB"
+};
+
+string board[50];
+
+int WBcnt(int x, int y)
+{
+	//White가 왼쪽 상단인 체스판을 만들때 수정해야할 색의 count 를 return 
+	int cnt = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (board[x + i][y + j] != whitefirst[i][j])
+			{
+				cnt++;
+			}
+		}
+	}
+	return cnt;
+}
+
+int BWcnt(int x, int y)
+{
+
+	//Black이 왼쪽상단인 체스판을 만들때수정해야할 색의 count 를 return 
+	int cnt = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (board[x + i][y + j] != blackfirst[i][j])
+			{
+				cnt++;
+			}
+		}
+	}
+
+	return cnt;
+}
+
 
 int main()
 {
@@ -39,9 +100,34 @@ int main()
 	//체스판 다시 칠하기 
 	//M N 개의 단위로 정사각형으로 나누어져있는  M * N 크기의 보드 
 	// 어떤 사각형은검은색 or 흰색 , 8 x 8로 잘라서 제작 
+	int min_val = 10000;
+	vector<int> t;
+	int vertical, horizontal; // 세로 가로 
+	cin >> vertical >> horizontal;
+
+	for (int i = 0; i < vertical; i++)
+		cin >> board[i]; // board 생성 
 
 
+	for (int i = 0; i + 8 <= vertical; i++)
+	{
+		for (int j = 0; j + 8 <= horizontal; j++)
+		{
+			int temp;
+			temp = min(WBcnt(i, j), BWcnt(i, j));// 현재 위치에서 체스판을 만들었을때 더적게 칠하는 값을 return 
+			if (temp < min_val)
+			{
+				t.push_back(temp);
+				min_val = temp; // 현재 값보다 작다면 swap
+			}
+		}
+	}
 
+	cout << min_val;
+
+	
+	
+	
 
 
 	//19532
