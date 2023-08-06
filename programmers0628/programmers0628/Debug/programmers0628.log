@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\c++\programmers0628\programmers0628\main.cpp(89,46): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+C:\c++\programmers0628\programmers0628\main.cpp(89,72): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+C:\c++\programmers0628\programmers0628\main.cpp(273,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  programmers0628.vcxproj -> C:\c++\programmers0628\Debug\programmers0628.exe
