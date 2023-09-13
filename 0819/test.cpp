@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <cmath>
 #define MAX 8
 using namespace std;
 
@@ -10,7 +11,7 @@ using namespace std;
 
 // 프로그래머스 level 2 피로도 ( 완전 탐색 , DFS , recursive ) 일부 case 만 통과 
 // my code 
-{
+
 // bool compare(vector<int> a , vector<int>  b)
 // {
 //    if( a[0] > b[0] )
@@ -74,17 +75,17 @@ using namespace std;
 //
 //     return answer;
 //}
-}
+
 
 
 //answer code 
-{
+//{
 // int answer = 0;
 // bool visited[MAX] = {0};
 
 // void dfs(int cnt, int k, vector<vector<int>> &dungeons) {
 //     if (cnt > answer) answer = cnt;
-    
+//   
 //     for (int i=0; i<dungeons.size(); i++) {
 //         if (!visited[i] && dungeons[i][0] <= k) {
 //             visited[i] = true;
@@ -93,70 +94,70 @@ using namespace std;
 //         }
 //     }
 // }
-
+//
 // int solution(int k, vector<vector<int>> dungeons) {
 //     dfs(0, k, dungeons);
-    
+//    
 //     return answer;
 // }
-}
+//}
 
 
 
 // programmers lv2 brute force 모의고사 , solve 
 //https://school.programmers.co.kr/learn/courses/30/lessons/42840
-{
-    vector<int> solution(vector<int> answers) {
-    vector<int> answer;
-    int a = 0 ,b =0,c=0;
-    long long cnt1 = 0 ,cnt2 = 0 , cnt3 = 0;
-    vector<int> first = { 1,2,3,4,5};
-    vector<int> second = {2,1,2,3,2,4,2,5};
-    vector<int> third = {3,3,1,1,2,2,4,4,5,5};
+
+    // vector<int> solution(vector<int> answers) {
+    // vector<int> answer;
+    // int a = 0 ,b =0,c=0;
+    // long long cnt1 = 0 ,cnt2 = 0 , cnt3 = 0;
+    // vector<int> first = { 1,2,3,4,5};
+    // vector<int> second = {2,1,2,3,2,4,2,5};
+    // vector<int> third = {3,3,1,1,2,2,4,4,5,5};
     
-    for(int i = 0 ; i< answers.size() ; i++)
-    {
+    // for(int i = 0 ; i< answers.size() ; i++)
+    // {
         
 
-        if (a != 0 && i % first.size() == 0) a = 0;
-        if (b != 0 && i % second.size() == 0) b = 0;
-        if (c != 0 && i % third.size() == 0) c = 0;
+    //     if (a != 0 && i % first.size() == 0) a = 0;
+    //     if (b != 0 && i % second.size() == 0) b = 0;
+    //     if (c != 0 && i % third.size() == 0) c = 0;
         
         
         
-        if(answers[i] == first[a]) cnt1++;
+    //     if(answers[i] == first[a]) cnt1++;
         
             
    
             
         
-        if(answers[i] == second[b]) cnt2++;
+    //     if(answers[i] == second[b]) cnt2++;
         
-        if(answers[i] == third[c]) cnt3++;
+    //     if(answers[i] == third[c]) cnt3++;
         
         
         
 
-        a++;
-        b++;
-        c++;
+    //     a++;
+    //     b++;
+    //     c++;
         
-    }
+    // }
     
     
     
-    int temp =max(max(cnt1,cnt2),cnt3);
+    // int temp =max(max(cnt1,cnt2),cnt3);
     
-    if( temp == cnt1 ) answer.push_back(1);
-    if( temp == cnt2 ) answer.push_back(2);
-    if( temp == cnt3 ) answer.push_back(3);
+    // if( temp == cnt1 ) answer.push_back(1);
+    // if( temp == cnt2 ) answer.push_back(2);
+    // if( temp == cnt3 ) answer.push_back(3);
    
     
     
     
-    return answer;
-}
-}
+    // return answer;
+    // }
+
 
 
 
@@ -168,6 +169,37 @@ long long K;
 
 
 
+// 에라토스테네스의 제  구현 ,
+bool Eratos ( int n , int a )
+{
+    // n 이 1보다 작거나 같으면 종료 
+    if(  n<= 1 ) return false;
+
+    // 2 부터 n-1 까지 저장할수있는 배열할당 
+    // 배열 참조번호와 소수가 일치하도록 배열 크기는 n + 1 로 할당 
+    // index 0 , 1 은 사용 x 
+    bool* PrimaryArray = new bool[n+1];
+
+
+    // 배열 초기화 , 처음엔 모든 숫자를 소수로 보고 true 값주기 
+    for(int i = 2 ; i <= n ; i++) PrimaryArray[i] = true;
+
+    for(int i = 2 ; i * i <= n ; i++)
+    {
+        if(PrimaryArray[i]) // bool 형식이니깐 만약 true 값에 도달했다면 
+        {
+            // if 3 이 true 면 9 부터 check 시작 
+            for(int j = i * i;  j <= n ; j += i )
+            {
+                PrimaryArray[i] = false;
+            }
+        }
+    }
+
+    return PrimaryArray[a] ? PrimaryArray[a] : false;
+
+
+}
 
 
 int main()
@@ -190,29 +222,99 @@ int main()
     // }
 
 
-        // 테스트 케이스 1
-    vector<vector<int>> dungeons1 = {{80, 20}, {50, 40}, {30, 10}};
-    int k1 = 80;
-    int result1 = solution(k1, dungeons1);
-    cout << "Test Case 1: " << result1 << endl;
+    //     // 테스트 케이스 1
+    // vector<vector<int>> dungeons1 = {{80, 20}, {50, 40}, {30, 10}};
+    // int k1 = 80;
+    // //int result1 = solution( dungeons1);
+    // //cout << "Test Case 1: " << result1 << endl;
 
-    // 테스트 케이스 2
-    vector<vector<int>> dungeons2 = {{100, 10}, {200, 20}, {300, 30}};
-    int k2 = 500;
-    int result2 = solution(k2, dungeons2);
-    cout << "Test Case 2: " << result2 << endl;
+    // // 테스트 케이스 2
+    // vector<vector<int>> dungeons2 = {{100, 10}, {200, 20}, {300, 30}};
+    // int k2 = 500;
+    // //int result2 = solution( dungeons2);
+    // //cout << "Test Case 2: " << result2 << endl;
 
-    // 테스트 케이스 3
-    vector<vector<int>> dungeons3 = {{50, 30}, {100, 50}, {150, 20}};
-    int k3 = 200;
-    int result3 = solution(k3, dungeons3);
-    cout << "Test Case 3: " << result3 << endl;
+    // // 테스트 케이스 3
+    // vector<vector<int>> dungeons3 = {{50, 30}, {100, 50}, {150, 20}};
+    // int k3 = 200;
+    // //int result3 = solution( dungeons3);
+    // //cout << "Test Case 3: " << result3 << endl;
 
-    // 테스트 케이스 4
-    vector<vector<int>> dungeons4 = {{10, 5}, {20, 5}, {30, 5}, {40, 5}, {50, 5}};
-    int k4 = 100;
-    int result4 = solution(k4, dungeons4);
-    cout << "Test Case 4: " << result4 << endl;
+    // // 테스트 케이스 4
+    // vector<vector<int>> dungeons4 = {{10, 5}, {20, 5}, {30, 5}, {40, 5}, {50, 5}};
+    // int k4 = 100;
+    // //int result4 = solution( dungeons4);
+    // cout << "Test Case 4: "  << endl;
+
+
+        
+    int M , N ;
+    cin >> N >> M;
+
+    // BOJ 1978 소수찾기  에라토스테네스의 제 활용 
+    // int answer = 0;
+    // int check[1001] = { 0 };
+    // // 0번째 1번째 index는 사용안함 , 소수와 배열 참조의 숫자를 같게하기위해서 
+    // check[0] = check[1] = 1;
+    // for(int i = 2 ; i <= sqrt(1000); i++)
+    // {
+    //     cout << " i : " << i << " check [i] " <<check[i] << endl;
+    //     if(check[i] == 0)
+    //     {   
+    //         cout << i << endl;
+    //         for(int j = i * i ; j <= 1000; j += i)
+    //         {
+    //             check[j] = 1;
+    //         }
+    //     }
+    // }
+    // for(int i = 0 ; i < numbers.size() ; i++)
+    // {
+    //     cout << "number : " << numbers[i] << " check is : " << check[numbers[i]] << endl;
+    //     if(!check[numbers[i]])
+    //     {
+    //         answer++;
+    //     }
+    // }
+    //cout << answer <<endl;
+
+
+
+
+    // BOJ 1929 소수 구하기 에라토스테네스의 제 활용 
+    bool eratos[M+1];
+
+    for(int i = 0 ; i < M+1 ; i++) eratos[i] = true;
+    
+    for(int i = 2; i < sqrt(M+1);i++)
+    {
+        if(eratos[i])
+        {
+            for( int j = i*i; j <= M+1; j += i)
+            {
+                eratos[j]= false;
+            }
+        }
+    }
+    for(int i = N; i <= M ; i++)
+    {
+        if(eratos[i]&& i != 1 && i != 0)
+        cout << i << endl; 
+        //answer.push_back(i);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

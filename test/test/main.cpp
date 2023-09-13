@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-//#include <cmath>
+#include <cmath>
 using namespace std;
 
 
@@ -32,6 +32,15 @@ void print(vector<int> v)
 		cout << n << " ,";
 	}
 }
+
+void print(vector<pair<int, int>> v)
+{
+	for (auto n : v)
+	{
+		cout << n.first << " ," << n.second << endl;
+	}
+}
+
 // 정답 체스판 1 
 string whitefirst[8] = {
 		"WBWBWBWB",
@@ -94,36 +103,153 @@ int BWcnt(int x, int y)
 }
 
 
+
+
+
 int main()
 {
-	//1018
-	//체스판 다시 칠하기 
-	//M N 개의 단위로 정사각형으로 나누어져있는  M * N 크기의 보드 
-	// 어떤 사각형은검은색 or 흰색 , 8 x 8로 잘라서 제작 
-	int min_val = 10000;
-	vector<int> t;
-	int vertical, horizontal; // 세로 가로 
-	cin >> vertical >> horizontal;
+	//BOJ 1931 그리디
+	//1개의 회의실 이를 사용하는 N 개의 회의실 
+	// 각 회의 I 에 대해 시작시간과 끝나는 시간이 주어짐 
+	// 겹치지않게 하면서 회의실을 사용하는 최대갯수 
+	// 회의 갯수 N , 둘째 줄부터 N+1 의 회의의 정보 
+	
 
-	for (int i = 0; i < vertical; i++)
-		cin >> board[i]; // board 생성 
-
-
-	for (int i = 0; i + 8 <= vertical; i++)
+	vector<pair<int, int>> classes;
+	int N, I1 ,I2;
+	cin >> N;
+	for (int i = 0; i < N; i++)
 	{
-		for (int j = 0; j + 8 <= horizontal; j++)
-		{
-			int temp;
-			temp = min(WBcnt(i, j), BWcnt(i, j));// 현재 위치에서 체스판을 만들었을때 더적게 칠하는 값을 return 
-			if (temp < min_val)
-			{
-				t.push_back(temp);
-				min_val = temp; // 현재 값보다 작다면 swap
-			}
-		}
+		cin >> I1 >>I2;
+		classes.push_back({ I1 , I2 });
 	}
 
-	cout << min_val;
+	print(classes);
+	int a, b;
+	make_pair<a, b>;
+	sort(classes.begin(), classes.end()){
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	{
+		//int N;
+        //int K;
+        //// 1 <= N <= 10 , 1 <= K <= 100,00,000
+        ////둘째 줄부터 N개의 줄에 동전의 가치 Ai가 오름차순으로 주어진다.
+        //// (1 ≤ Ai ≤ 1,000,000, A1 = 1, i ≥ 2인 경우에 Ai는 Ai-1의 배수)
+        
+		////BOJ 11047 그리디 
+		//int answer = 0;
+		//vector<int> numbers;
+		//cin >> N >> K;
+		//int temp;
+		//for (int i = 0; i < N; i++)
+		//{
+		//	cin >> temp;
+		//	numbers.push_back(temp);
+		//}
+
+		//sort(numbers.begin(), numbers.end() );
+
+		////for (auto n : numbers)
+		////{
+		////	cout << n << "  , ";
+		////}
+
+		//while (K)
+		//{
+		//	temp = numbers.back();
+		//	numbers.pop_back();
+
+		//	if (temp > K)
+		//		continue;
+
+
+		//	if (temp <= K)
+		//	{
+		//		answer += (K / temp);
+		//		K = K % temp;
+		//	}
+
+		//	cout << K << endl;
+		//	cout << temp << endl;
+		//	cout << answer << endl;
+		//}
+
+		//cout << answer << endl;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	////1018
+	////체스판 다시 칠하기 
+	////M N 개의 단위로 정사각형으로 나누어져있는  M * N 크기의 보드 
+	//// 어떤 사각형은검은색 or 흰색 , 8 x 8로 잘라서 제작 
+	//int min_val = 10000;
+	//vector<int> t;
+	//int vertical, horizontal; // 세로 가로 
+	//cin >> vertical >> horizontal;
+
+	//for (int i = 0; i < vertical; i++)
+	//	cin >> board[i]; // board 생성 
+
+
+	//for (int i = 0; i + 8 <= vertical; i++)
+	//{
+	//	for (int j = 0; j + 8 <= horizontal; j++)
+	//	{
+	//		int temp;
+	//		temp = min(WBcnt(i, j), BWcnt(i, j));// 현재 위치에서 체스판을 만들었을때 더적게 칠하는 값을 return 
+	//		if (temp < min_val)
+	//		{
+	//			t.push_back(temp);
+	//			min_val = temp; // 현재 값보다 작다면 swap
+	//		}
+	//	}
+	//}
+
+	//cout << min_val;
 
 	
 	
