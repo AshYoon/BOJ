@@ -418,29 +418,65 @@ bool Eratos ( int n , int a )
 //     return 0;
 // }
 
+// BOJ 1697 숨바꼭질 ( BFS 선형)
+// {
+//     int moves[3] = { -1 , 1  , 2};
+//     int board[100002];
+//     int n , m;
+//         ios::sync_with_stdio(0);
+//         cin.tie(0);
+//         cin >> n >> m;
+//         if(n == m) // 0 예외처리 
+//         {
+//             cout << "0" << '\n';
+//             return 0;
+//         }
+//         fill(board, board + 100001 , -1);
+//         queue<int> Q;
+//         board[n] = 0 ;
+//         Q.push(n);
+//         while(!Q.empty())
+//         {
+//             int cur = Q.front(); Q.pop();
+//             for(int i = 0 ; i < 3 ; i++)
+//             {
+//                 int np = cur + moves[i];
+//                 if(i == 2 ) np = cur * moves[i];
+//                 if( np < 0 || np >= 100002) continue;
+//                 if(board[np] != -1 ) continue;
+//                 if(np == m )
+//                 {
+//                     cout << board[cur] + 1 << '\n';
+//                     return 0;
+//                 }
+//                 board[np] = board[cur] + 1;
+//                 Q.push(np);
+//             }
+//         }
+//         return 0;
+// }
 
-int N , M;
+int n , m;
 #define X first
 #define Y second
 
 int dx[4] = {-1 , 1 , 0,0 };
 int dy[4] = { 0 , 0 , 1, -1};
 
-string board[1002];
-int dist[1002][1002];
-int firedist[1002][1002];
+
 
 
 int main()
 {   
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+
+        cin >> n >> m;
 
 
 
 
-    
-    return 0;
+        return 0;
 
 
 
