@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <bits/stdc++.h>
 #define MAX 8
 using namespace std;
 
@@ -161,8 +162,8 @@ using namespace std;
 
 
 
-int N ;
-long long K;
+int N , M;
+//long long K;
 // 1 <= N <= 10 , 1 <= K <= 100,00,000
 //둘째 줄부터 N개의 줄에 동전의 가치 Ai가 오름차순으로 주어진다.
 // (1 ≤ Ai ≤ 1,000,000, A1 = 1, i ≥ 2인 경우에 Ai는 Ai-1의 배수)
@@ -202,8 +203,82 @@ bool Eratos ( int n , int a )
 }
 
 
+#define X first
+#define Y second
+
+int dx[4] = {0 , 0 , -1 , 1};
+int dy[4] = {1 , -1 , 0 , 0};
+
+int dist[102][102];
+string board[102];
+
 int main()
-{
+{   
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    
+    cin >> N >> M;
+    for(int i = 0 ; i < N ; i++)
+        cin >> board[i];
+    
+    for(int i = 0 ; i < N ;i++) fill(dist[i],dist[i]+M,-1); // -1로 배열 초기화 
+
+    
+    for(int i = 0 ; i < N ; i++)
+    {
+        for(int j = 0 ; j < M ; j++)
+        {
+            cout << board[i][j] << " " ;
+        }
+        cout << '\n';
+    }
+    
+    queue<pair<int,int>> q;
+    dist[0][0] = 0;
+    q.push({0,0});
+    while(!q.empty())
+    {
+        pair<int,int> cur = q.front(); q.pop();
+        for(int dir = 0 ; dir < 4 ; dir++)
+        {
+            int nx = cur.X + dx[dir];
+            int ny = cur.Y + dy[dir];
+            if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+            if(dist[nx][ny] >= 0 || board[nx][ny] != '1') continue;
+            dist[nx][ny] = dist[cur.X][cur.Y] + 1;
+            q.push({nx,ny});
+            cout << nx << " " << ny << " " << '\n';
+        }
+    }
+
+    cout << dist[N-1][M-1] + 1 << '\n';
+
+    
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // vector<int> numbers;
     // cin >> N >> K;
@@ -248,8 +323,8 @@ int main()
 
 
         
-    int M , N ;
-    cin >> N >> M;
+    //int M , N ;
+    //cin >> N >> M;
 
     // BOJ 1978 소수찾기  에라토스테네스의 제 활용 
     // int answer = 0;
@@ -282,27 +357,29 @@ int main()
 
 
     // BOJ 1929 소수 구하기 에라토스테네스의 제 활용 
-    bool eratos[M+1];
+    //bool eratos[M+1];
 
-    for(int i = 0 ; i < M+1 ; i++) eratos[i] = true;
+    // for(int i = 0 ; i < M+1 ; i++) eratos[i] = true;
     
-    for(int i = 2; i < sqrt(M+1);i++)
-    {
-        if(eratos[i])
-        {
-            for( int j = i*i; j <= M+1; j += i)
-            {
-                eratos[j]= false;
-            }
-        }
-    }
-    for(int i = N; i <= M ; i++)
-    {
-        if(eratos[i]&& i != 1 && i != 0)
-        cout << i << endl; 
-        //answer.push_back(i);
-    }
+    // for(int i = 2; i < sqrt(M+1);i++)
+    // {
+    //     if(eratos[i])
+    //     {
+    //         for( int j = i*i; j <= M+1; j += i)
+    //         {
+    //             eratos[j]= false;
+    //         }
+    //     }
+    // }
+    // for(int i = N; i <= M ; i++)
+    // {
+    //     if(eratos[i]&& i != 1 && i != 0)
+    //     cout << i << endl; 
+    //     //answer.push_back(i);
+    // }
     
+    //int V = 3;
+    //vector<vector<int>> cost = {{1,2,2},{1,3,1},{2,3,1}};
 
 
 
