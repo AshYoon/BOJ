@@ -245,7 +245,7 @@ bool Eratos ( int n , int a )
 //     }
 //     cout << dist[N-1][M-1] + 1 << '\n';
  
-//BOJ 토마토 ( bfs ) 
+//BOJ 7567 토마토 ( bfs ) 
 //  {
 //     int N , M;
 // #define X first
@@ -309,6 +309,116 @@ bool Eratos ( int n , int a )
 //     cout << ans ;   
 //  }
 
+//BOJ 4179 불 ! ( BFS )
+// {
+// int N , M;
+// #define X first
+// #define Y second
+// int dx[4] = {-1 , 1 , 0,0 };
+// int dy[4] = { 0 , 0 , 1, -1};
+// string board[1002];
+// int dist[1002][1002];
+// int firedist[1002][1002];
+// int main()
+// {   
+//     ios::sync_with_stdio(0);
+//     cin.tie(0);
+//     // board에 넣으면서  J 와 F 의 위치를 찾고 
+//     // bfs를 의 dir을 돌릴때 J와 F를 같이 돌려서 만약 만나면 impossible ? 
+//     // 만약 J의 bfs를 돌릴때 탈출에 성공하게되면 바로 return ? 
+//     // 해답 , fire bfs를 먼저 돌려서 해당 firedist 배열을 바탕으로 
+//     // jihoon bfs를 돌려서 fire보다 값이 적은곳만 돌아다닐수있게 조건을 설정하고 만약 N 혹은 M 에 도달한다면 
+//     // dist[cur.X][cur.Y] + 1 값을 해줘서 return 하면 탈출값이 나오고 만약 탈출을 못하고 bfs가 끝나게될경우 
+//     // 해당 경우는 탈출이 불가능하니 "IMPOSSIBLE" 을 출력하면 된다 
+//     pair<int, int> jihoon;
+//     pair<int, int> fire;
+//     cin >> N >> M;
+//     for(int i = 0 ; i < N ;i++) fill(dist[i],dist[i]+M,-1); // -1로 배열 초기화 
+//
+//     for(int i = 0 ; i< N ; i++) fill(firedist[i],firedist[i]+M,-1);
+//
+//     for(int i = 0 ; i < N ;i++)
+//         cin >> board[i];
+//
+//     queue<pair<int,int>> Q1;
+//     queue<pair<int,int>> Q2;
+//     for(int i = 0; i < N ;i++) // 불의 시작점이 여러개일경우 동시에 시작해야하니 해당 시작점을 미리 넣어줘야한다 
+//     {
+//         for(int j = 0 ; j < M ; j++)
+//         {
+//             if(board[i][j] == 'J') 
+//             {
+//                 jihoon = {i, j};
+//                 Q2.push({i,j});
+//             }
+//             if(board[i][j] == 'F') 
+//             {
+//                 firedist[i][j] = 0;
+//                 Q1.push({i,j});
+//             }
+//         }
+//     }
+//     //fire부터 
+//     //firedist[fire.X][fire.Y] = 0;
+//     //Q.push({fire.X,fire.Y});
+//     while(!Q1.empty())
+//     {
+//         pair<int,int> cur = Q1.front();Q1.pop();
+//         for(int dir = 0 ; dir < 4 ; dir++)
+//         {
+//             int nx = cur.X + dx[dir];
+//             int ny = cur.Y + dy[dir];
+//             if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+//             if(board[nx][ny] == '#' || firedist[nx][ny] >= 0 ) continue;
+//
+//             firedist[nx][ny] = firedist[cur.X][cur.Y] + 1;
+//             Q1.push({nx,ny});
+//         }
+//     }
+//     for(int i = 0 ; i < N ;i++)
+//     {
+//         for(int j = 0 ; j < M ;j++)
+//         {
+//             cout << firedist[i][j] << " ";
+//         }
+//         cout << '\n';
+//     }
+//     int ans = 0;
+//     dist[jihoon.X][jihoon.Y] = 0;
+//     //Q.push({jihoon.X , jihoon.Y});
+//     while(!Q2.empty())
+//     {
+//         pair<int,int> cur = Q2.front() ; Q2.pop();
+//         for(int dir = 0; dir < 4 ; dir++)
+//         {
+//             int nx = cur.X + dx[dir];
+//             int ny = cur.Y + dy[dir];
+//             if(nx < 0 || ny < 0 || nx >= N || ny >= M )
+//             {
+//                 cout << dist[cur.X][cur.Y] + 1 << '\n';
+//                 return 0;
+//                 ans = dist[cur.X][cur.Y] + 1;
+//             }
+//             if(board[nx][ny] == '#' || dist[nx][ny] >= 0) continue;
+//             if(firedist[nx][ny] != -1 && firedist[nx][ny] <= dist[cur.X][cur.Y] + 1) continue;
+//             dist[nx][ny] = dist[cur.X][cur.Y] + 1;
+//             Q2.push({nx,ny}); 
+//         }
+//     }
+//     for(int i = 0 ; i < N ;i++)
+//     {
+//         for(int j = 0 ; j < M ;j++)
+//         {
+//             cout << dist[i][j] << " ";
+//         }
+//         cout << '\n';
+//     }
+//     ans == 0 ? cout << "IMPOSSIBLE" : cout << ans ;
+//     //cout << "IMPOSSIBLE" << '\n';
+//     return 0;
+// }
+
+
 int N , M;
 #define X first
 #define Y second
@@ -316,8 +426,9 @@ int N , M;
 int dx[4] = {-1 , 1 , 0,0 };
 int dy[4] = { 0 , 0 , 1, -1};
 
-int tomato[1002][1002];
+string board[1002];
 int dist[1002][1002];
+int firedist[1002][1002];
 
 
 int main()
@@ -325,7 +436,11 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    cin >>  M >> N;
+
+
+
+    
+    return 0;
 
 
 
