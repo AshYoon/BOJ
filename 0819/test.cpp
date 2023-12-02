@@ -162,7 +162,7 @@ using namespace std;
 
 
 
-int N , M;
+
 //long long K;
 // 1 <= N <= 10 , 1 <= K <= 100,00,000
 //둘째 줄부터 N개의 줄에 동전의 가치 Ai가 오름차순으로 주어진다.
@@ -203,58 +203,134 @@ bool Eratos ( int n , int a )
 }
 
 
+// BOJ 2178 미로찾기 ( bfs) 
+
+// #define X first
+// #define Y second
+// int dx[4] = {0 , 0 , -1 , 1};
+// int dy[4] = {1 , -1 , 0 , 0};
+// int dist[102][102];
+// string board[102];
+//     cin >> N >> M;
+//
+//     for(int i = 0 ; i < N ; i++)
+//         cin >> board[i];
+//
+//     for(int i = 0 ; i < N ;i++) fill(dist[i],dist[i]+M,-1); // -1로 배열 초기화 
+//
+//     for(int i = 0 ; i < N ; i++)
+//     {
+//         for(int j = 0 ; j < M ; j++)
+//         {
+//             cout << board[i][j] << " " ;
+//         }
+//         cout << '\n';
+//     }
+//     queue<pair<int,int>> q;
+//     dist[0][0] = 0;
+//     q.push({0,0});
+//     while(!q.empty())
+//     {
+//         pair<int,int> cur = q.front(); q.pop();
+//         for(int dir = 0 ; dir < 4 ; dir++)
+//         {
+//             int nx = cur.X + dx[dir];
+//             int ny = cur.Y + dy[dir];
+//             if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+//             if(dist[nx][ny] >= 0 || board[nx][ny] != '1') continue;
+//             dist[nx][ny] = dist[cur.X][cur.Y] + 1;
+//             q.push({nx,ny});
+//             //cout << nx << " " << ny << " " << '\n';
+//         }
+//     }
+//     cout << dist[N-1][M-1] + 1 << '\n';
+ 
+//BOJ 토마토 ( bfs ) 
+//  {
+//     int N , M;
+// #define X first
+// #define Y second
+// int dx[4] = {-1 , 1 , 0,0 };
+// int dy[4] = { 0 , 0 , 1, -1};
+// int tomato[1002][1002];
+// int dist[1002][1002];
+// int main()
+// {   
+//     ios::sync_with_stdio(0);
+//     cin.tie(0);
+//     cin >>  M >> N;
+//     queue<pair<int,int>> Q;
+//     for(int i = 0 ; i < N;i++)
+//     {
+//         for(int j = 0 ; j < M;j++)
+//         {
+//             cin >> tomato[i][j];
+//
+//             if(tomato[i][j] == 1) 
+//             {
+//                 Q.push({i,j});
+//             }
+//             else if(tomato[i][j] == 0)
+//             {
+//                 dist[i][j] = -1;
+//             }
+//         }
+//     }
+//     while(!Q.empty())
+//     {
+//         pair<int,int> cur = Q.front() ; Q.pop();
+//         for(int dir = 0 ; dir < 4 ; dir++)
+//         {
+//             int nx = cur.X + dx[dir];
+//             int ny = cur.Y + dy[dir];
+//             if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+//             if( dist[nx][ny] >= 0 ) continue; // 0이거나 0보다 크면 이미 방문한 노드로 처리함 -> -1 로된 부분만 처리하니깐 
+//             // 만약 빈공간이라면 0 으로 처리되어있으니 자연스럽게 넘어감 
+//             //  if(tomato[nx][ny] == -1) continue;
+//             dist[nx][ny] = dist[cur.X][cur.Y] + 1;
+//            
+//             Q.push({nx,ny});
+//         }
+//     }
+//     int ans = 0;
+//     for(int i = 0 ; i < N ; i++)
+//     {
+//         for(int j = 0 ; j < M ;j++)
+//         {
+//             if(dist[i][j] == -1) // 만약 -1 이있다면 우리가 초기화한 토마토값(-1) 이 남아있다는뜻이니 바로 -1 리턴 
+//             {
+//                 cout << -1 << '\n';
+//                 return 0;
+//             }
+//             ans = max(dist[i][j], ans);  // -1 값이없다면 계속해서 최대값을 가져온다 
+//         }
+//         cout << '\n';
+//     }
+//     cout << ans ;   
+//  }
+
+int N , M;
 #define X first
 #define Y second
 
-int dx[4] = {0 , 0 , -1 , 1};
-int dy[4] = {1 , -1 , 0 , 0};
+int dx[4] = {-1 , 1 , 0,0 };
+int dy[4] = { 0 , 0 , 1, -1};
 
-int dist[102][102];
-string board[102];
+int tomato[1002][1002];
+int dist[1002][1002];
+
 
 int main()
 {   
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    
-    cin >> N >> M;
-    for(int i = 0 ; i < N ; i++)
-        cin >> board[i];
-    
-    for(int i = 0 ; i < N ;i++) fill(dist[i],dist[i]+M,-1); // -1로 배열 초기화 
+    cin >>  M >> N;
 
-    
-    for(int i = 0 ; i < N ; i++)
-    {
-        for(int j = 0 ; j < M ; j++)
-        {
-            cout << board[i][j] << " " ;
-        }
-        cout << '\n';
-    }
-    
-    queue<pair<int,int>> q;
-    dist[0][0] = 0;
-    q.push({0,0});
-    while(!q.empty())
-    {
-        pair<int,int> cur = q.front(); q.pop();
-        for(int dir = 0 ; dir < 4 ; dir++)
-        {
-            int nx = cur.X + dx[dir];
-            int ny = cur.Y + dy[dir];
-            if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-            if(dist[nx][ny] >= 0 || board[nx][ny] != '1') continue;
-            dist[nx][ny] = dist[cur.X][cur.Y] + 1;
-            q.push({nx,ny});
-            cout << nx << " " << ny << " " << '\n';
-        }
-    }
 
-    cout << dist[N-1][M-1] + 1 << '\n';
 
-    
+
+
 
     
     
