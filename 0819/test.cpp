@@ -458,18 +458,53 @@ bool Eratos ( int n , int a )
 
 
 //BOJ 11729 하노이 탑 이동순서 
-void func ( int a , int b , int n)
-{
-    if( n == 1 ) // base condition 
-    {
-        cout << a << " " << b << '\n';
-        return ;
-    }
-    func ( a , 6 -a -b , n-1); // 먼저 n -1 개를 a 와 b 가 아닌 기둥으로 옮기고 
-    cout << a << " " << b << '\n'; // 그 다음 a 기둥의 제일 마지막 원판을 b 기둥으로 옮긴뒤 
-    func( 6 -a - b , b , n-1); // a 와 b 가 아닌 기둥에 있는 n -1 개의 원판을 b 로 옮겨 준다 
-}
+// void func ( int a , int b , int n)
+// {
+//     if( n == 1 ) // base condition 
+//     {
+//         cout << a << " " << b << '\n';
+//         return ;
+//     }
+//     func ( a , 6 -a -b , n-1); // 먼저 n -1 개를 a 와 b 가 아닌 기둥으로 옮기고 
+//     cout << a << " " << b << '\n'; // 그 다음 a 기둥의 제일 마지막 원판을 b 기둥으로 옮긴뒤 
+//     func( 6 -a - b , b , n-1); // a 와 b 가 아닌 기둥에 있는 n -1 개의 원판을 b 로 옮겨 준다 
+// }
+// {
+//         int k;
+//         cin >> k;
+//         cout << (1 << k) -1 << '\n'; // 하노이 탑 최소 횟수 식 
+//         func( 1 ,3 ,k);
+// }
 
+// void recursion(int n)
+// {
+//     if( n > 0 )
+//     {
+//         cout << n << '\n';
+//         recursion( n -1 );
+//     }   
+// }
+// int recursionPlus(int n)
+// {
+//     if(n==0) return 0;
+//     return n + recursionPlus(n -1 );
+// }
+
+//BOJ 1074 번 Z 
+// int func( int n , int r , int c)
+// {
+//     if(n == 0 ) return 0;
+//     int half = 1 <<(n-1);
+//     if(r < half && c < half)  return func(n-1 , r , c );
+//     if(r < half && c >= half) return half * half + func( n - 1 , r , c - half);
+//     if( r >= half && c < half)  return 2 * half * half + func(n - 1 , r - half , c);
+//     return 3 * half * half + func( n -1 , r - half , c - half);
+// }
+// {
+//     int  n , r , c;
+//     cin >> n >> r >> c;
+//     cout << func(n ,r ,c) << '\n';
+// }
 
 int n , m;
 #define X first
@@ -478,31 +513,13 @@ int n , m;
 int dx[4] = {-1 , 1 , 0,0 };
 int dy[4] = { 0 , 0 , 1, -1};
 
-void recursion(int n)
-{
-    if( n > 0 )
-    {
-        cout << n << '\n';
-        recursion( n -1 );
-    }
-    
-}
-
-int recursionPlus(int n)
-{
-    if(n==0) return 0;
-    return n + recursionPlus(n -1 );
-}
 
 int main()
 {   
         ios::sync_with_stdio(0);
         cin.tie(0);
-        int k;
-        cin >> k;
-        
-        func( 1 ,3 ,k);
-        cout << (1 << k) -1 << '\n';
+
+
         return 0;
 
 
